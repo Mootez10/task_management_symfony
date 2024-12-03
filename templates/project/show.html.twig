@@ -1,0 +1,90 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Project Details{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <h1 class="mb-4 text-center text-primary">Project Details</h1>
+
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <table class="table table-bordered">
+                    <tbody>
+                    <tr>
+                        <th scope="row" class="text-primary">ID</th>
+                        <td>{{ project.id }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="text-primary">Name</th>
+                        <td>{{ project.name }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="text-primary">Description</th>
+                        <td>{{ project.description }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="text-primary">Start Date</th>
+                        <td>{{ project.startDate ? project.startDate|date('Y-m-d H:i:s') : 'N/A' }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="text-primary">End Date</th>
+                        <td>{{ project.endDate ? project.endDate|date('Y-m-d H:i:s') : 'N/A' }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="mt-4 text-center">
+            <a href="{{ path('app_project_index') }}" class="btn btn-secondary">Back to List</a>
+            <a href="{{ path('app_project_edit', {'id': project.id}) }}" class="btn btn-primary">Edit</a>
+            {{ include('project/_delete_form.html.twig', { 'class': 'd-inline' }) }}
+        </div>
+    </div>
+
+    <style>
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: #007bff;
+        }
+
+        .card {
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            background-color: #f8f9fa;
+        }
+
+        .table th {
+            width: 30%;
+            background-color: #f1f1f1;
+        }
+
+        .table th, .table td {
+            font-size: 16px;
+            vertical-align: middle;
+        }
+
+        .btn-secondary {
+            margin-right: 10px;
+        }
+
+        .btn-primary {
+            margin-right: 10px;
+        }
+
+        .btn-danger {
+            color: #fff;
+            background-color: #dc3545;
+            border-color: #dc3545;
+        }
+
+        .mt-4 {
+            margin-top: 1.5rem;
+        }
+    </style>
+{% endblock %}

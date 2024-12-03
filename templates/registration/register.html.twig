@@ -1,0 +1,116 @@
+{% block body %}
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-8 col-sm-10">
+                <div class="card shadow-lg">
+                    <h3 class="card-header text-center text-primary">Register</h3>
+                    <div class="card-body">
+                        <!-- Display form errors -->
+                        {% if form_errors(registrationForm) %}
+                            <div class="alert alert-danger">
+                                {{ form_errors(registrationForm) }}
+                            </div>
+                        {% endif %}
+
+                        <!-- Form start -->
+                        {{ form_start(registrationForm, { 'attr': { 'class': 'needs-validation' } }) }}
+
+                        <!-- Email input -->
+                        <div class="form-group mb-3">
+                            {{ form_row(registrationForm.email, {
+                                'attr': { 'class': 'form-control', 'placeholder': 'Enter your email' }
+                            }) }}
+                        </div>
+
+                        <!-- Password input -->
+                        <div class="form-group mb-3">
+                            {{ form_row(registrationForm.plainPassword, {
+                                label: 'Password',
+                                'attr': { 'class': 'form-control', 'placeholder': 'Enter your password' }
+                            }) }}
+                        </div>
+                        {{ form_end(registrationForm) }}
+
+                        <!-- Submit button -->
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-dark btn-block">
+                                Sign Up
+                            </button>
+                        </div>
+
+                        <div class="text-center mt-3">
+                            <span>Already have an account? </span>
+                            <a href="{{ path('app_login') }}" class="text-primary">Login now</a>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom CSS -->
+    <style>
+        /* General card styling */
+        .card {
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            background-color: #007bff;
+            color: white;
+            font-size: 1.5rem;
+            padding: 1rem;
+        }
+
+        .card-body {
+            background-color: #f8f9fa;
+            padding: 2rem;
+        }
+
+        /* Form fields styling */
+        .form-control {
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-control:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+
+        /* Submit button styling */
+        .btn-dark {
+            background-color: #343a40;
+            border-color: #343a40;
+            font-size: 1.1rem;
+            padding: 10px 20px;
+            border-radius: 50px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-dark:hover {
+            background-color: #23272b;
+        }
+
+        /* Login link styling */
+        .text-center a {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        .text-center a:hover {
+            color: #0056b3;
+        }
+
+        /* Responsive design adjustments */
+        @media (max-width: 576px) {
+            .col-sm-10 {
+                max-width: 100%;
+            }
+        }
+    </style>
+{% endblock %}

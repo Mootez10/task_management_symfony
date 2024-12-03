@@ -29,13 +29,14 @@ class Task
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $due_date = null;
 
-    #[ORM\ManyToOne(inversedBy: 'tasks')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Employee $employee = null;
+
 
     #[ORM\ManyToOne(inversedBy: 'tasks')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Project $project = null;
+
+    #[ORM\ManyToOne(inversedBy: 'tasks')]
+    private ?User $employee = null;
 
     public function getId(): ?int
     {
@@ -109,17 +110,7 @@ class Task
         return $this;
     }
 
-    public function getEmployee(): ?Employee
-    {
-        return $this->employee;
-    }
 
-    public function setEmployee(?Employee $employee): static
-    {
-        $this->employee = $employee;
-
-        return $this;
-    }
 
     public function getProject(): ?Project
     {
@@ -129,6 +120,18 @@ class Task
     public function setProject(?Project $project): static
     {
         $this->project = $project;
+
+        return $this;
+    }
+
+    public function getEmployee(): ?User
+    {
+        return $this->employee;
+    }
+
+    public function setEmployee(?User $employee): static
+    {
+        $this->employee = $employee;
 
         return $this;
     }

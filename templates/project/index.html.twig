@@ -1,0 +1,105 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Project Index{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <h1 class="mb-4 text-center text-primary">Project Index</h1>
+
+        <div class="table-responsive">
+            <table class="table table-striped table-hover table-bordered">
+                <thead class="thead-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for project in projects %}
+                    <tr>
+                        <td>{{ project.id }}</td>
+                        <td>{{ project.name }}</td>
+                        <td>{{ project.description }}</td>
+                        <td>{{ project.startDate ? project.startDate|date('Y-m-d H:i:s') : '' }}</td>
+                        <td>{{ project.endDate ? project.endDate|date('Y-m-d H:i:s') : '' }}</td>
+                        <td>
+                            <a href="{{ path('app_project_show', {'id': project.id}) }}" class="btn btn-primary btn-sm">Show</a>
+                            <a href="{{ path('app_project_edit', {'id': project.id}) }}" class="btn btn-warning btn-sm">Edit</a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="6" class="text-center">No records found</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="text-center mt-3">
+            <a href="{{ path('app_project_new') }}" class="btn btn-success">Create New Project</a>
+        </div>
+    </div>
+
+    <style>
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: #007bff;
+        }
+
+        .table {
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        .table th {
+            background-color: #343a40;
+            color: white;
+        }
+
+        .table-bordered td, .table-bordered th {
+            border: 1px solid #ddd;
+        }
+
+        .table-striped tbody tr:nth-child(odd) {
+            background-color: #f9f9f9;
+        }
+
+        .table-hover tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .btn-sm {
+            font-size: 14px;
+            padding: 6px 12px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-warning {
+            background-color: #ffc107;
+            border-color: #ffc107;
+        }
+
+        .btn-success {
+            background-color: #28a745;
+            border-color: #28a745;
+        }
+
+        .mt-3 {
+            margin-top: 1rem;
+        }
+    </style>
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Create New Project{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <h1 class="mb-4 text-center text-primary">Create New Project</h1>
+
+        <div class="card p-4 shadow-sm">
+            {{ include('project/_form.html.twig') }}
+        </div>
+
+        <div class="text-center mt-3">
+            <a href="{{ path('app_project_index') }}" class="btn btn-secondary">Back to List</a>
+        </div>
+    </div>
+
+    <style>
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: #007bff;
+        }
+
+        .card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f8f9fa;
+        }
+
+        .card p {
+            margin-bottom: 0;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            border-color: #6c757d;
+            color: #fff;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+            border-color: #545b62;
+        }
+
+        .mt-3 {
+            margin-top: 1rem;
+        }
+    </style>
+{% endblock %}

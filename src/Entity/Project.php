@@ -28,15 +28,15 @@ class Project
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $end_date = null;
 
-    #[ORM\ManyToOne(inversedBy: 'projects')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Manager $manager = null;
 
     /**
      * @var Collection<int, Task>
      */
     #[ORM\OneToMany(targetEntity: Task::class, mappedBy: 'project')]
     private Collection $tasks;
+
+    #[ORM\ManyToOne(inversedBy: 'projects')]
+    private ?User $manager = null;
 
     public function __construct()
     {
@@ -103,17 +103,6 @@ class Project
         return $this;
     }
 
-    public function getManager(): ?Manager
-    {
-        return $this->manager;
-    }
-
-    public function setManager(?Manager $manager): static
-    {
-        $this->manager = $manager;
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, Task>
@@ -141,6 +130,18 @@ class Project
                 $task->setProject(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getManager(): ?User
+    {
+        return $this->manager;
+    }
+
+    public function setManager(?User $manager): static
+    {
+        $this->manager = $manager;
 
         return $this;
     }

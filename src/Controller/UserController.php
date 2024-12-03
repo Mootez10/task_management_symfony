@@ -10,76 +10,74 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
-class UserController extends AbstractController
+#[Route('/user')]
+final class UserController extends AbstractController
 {
-    #[Route('/user', name: 'app_user')]
-    public function index(): Response
+    #[IsGranted("ROLE_ADMIN")]
+    #[Route(name: 'app_user_index', methods: ['GET'])]
+    public function index(UserRepository $userRepository): Response
     {
         return $this->render('user/index.html.twig', [
-            'controller_name' => 'UserController',
+            'users' => $userRepository->findAll(),
         ]);
     }
-
-    #[Route('/', name: 'app_user')]
-    public function listUsers(UserRepository $userRepository): Response
-    {
-        $listUsers = $userRepository->findAll();
-        return $this->render('user/listUsers.html.twig', [
-            'listUsers' => $listUsers,
-        ]);
-    }
-
-    #[Route('/new', name: 'app_new')]
-    public function new(Request $request, EntityManagerInterface $em): Response
+    #[IsGranted("ROLE_ADMIN")]
+    #[Route('/new', name: 'app_user_new', methods: ['GET', 'POST'])]
+    public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em->persist($user);
-            $em->flush();
-            return $this->redirectToRoute('app_user');
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('user/new.html.twig', [
-            'formU' => $form->createView(),
+            'user' => $user,
+            'form' => $form,
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'user_update')]
-    public function edit(Request $request, EntityManagerInterface $em, UserRepository $userRepository, int $id): Response
+    #[Route('/{id}', name: 'app_user_show', methods: ['GET'])]
+    public function show(User $user): Response
     {
-        $user = $userRepository->find($id);
+        return $this->render('user/show.html.twig', [
+            'user' => $user,
+        ]);
+    }
+
+    #[Route('/{id}/edit', name: 'app_user_edit', methods: ['GET', 'POST'])]
+    public function edit(Request $request, User $user, EntityManagerInterface $entityManager): Response
+    {
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em->persist($user);
-            $em->flush();
+            $entityManager->flush();
 
-            // Add a flash message
-            $this->addFlash('success', 'User updated successfully');
-
-            return $this->redirectToRoute('app_user');
+            return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('user/edit.html.twig', [
-            'formU' => $form->createView(),
+            'user' => $user,
+            'form' => $form,
         ]);
     }
 
-
-    #[Route('/{id}', name: 'user_delete')]
-    public function delete(EntityManagerInterface $em, UserRepository $userRepository, int $id): Response
+    #[Route('/{id}', name: 'app_user_delete', methods: ['POST'])]
+    public function delete(Request $request, User $user, EntityManagerInterface $entityManager): Response
     {
-        $user = $userRepository->find($id);
-        $em->remove($user);
-        $em->flush();
+        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->getPayload()->getString('_token'))) {
+            $entityManager->remove($user);
+            $entityManager->flush();
+        }
 
-        $this->addFlash('success', 'User deleted successfully');
-
-        return $this->redirectToRoute('app_user');
+        return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
     }
 }
