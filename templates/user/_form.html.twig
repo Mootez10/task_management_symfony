@@ -5,22 +5,11 @@
         {% if field.vars.name == 'roles' %}
             <div class="form-group">
                 <label class="form-label">Roles</label>
-                <div class="role-options">
-                    {% for role, label in { 'ROLE_MANAGER': 'Manager', 'ROLE_ADMIN': 'Admin', 'ROLE_EMPLOYEE': 'Employee' } %}
-                        <div class="role-option">
-                            <input type="radio"
-                                   id="role_{{ loop.index }}"
-                                   name="roles"
-                                   value="{{ role }}"
-                                   class="form-input-radio"
-                                   {% if role in field.vars.value %}checked{% endif %}>
-                            <label for="role_{{ loop.index }}" class="form-label-radio">{{ label }}</label>
-                        </div>
-                    {% endfor %}
-                </div>
+                {{ form_widget(field, {'attr': {'class': 'form-input-radio'}}) }}
+                {{ form_errors(field, {'attr': {'class': 'text-danger'}}) }}
             </div>
         {% elseif field.vars.name == '_token' %}
-            {{ form_widget(field) }} {# Render the CSRF token as a hidden field #}
+            {{ form_widget(field) }}
         {% else %}
             <div class="form-group">
                 {{ form_label(field, null, {'label_attr': {'class': 'form-label'}}) }}
@@ -35,37 +24,58 @@
     <button type="submit" class="button-52">{{ button_label|default('Save') }}</button>
 </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
 <style>
+    /* General Styles */
+    body {
+        font-family: 'Roboto', sans-serif;
+        background: #f4f4f4;
+        min-height: 100vh;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .edit-container {
+        width: 500px; /* Larger width */
+        padding: 30px; /* Moderate padding */
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+        margin: 50px auto; /* More centered and reduced margin */
+    }
+
+    .form-title {
+        text-align: center;
+        font-size: 2rem; /* Moderate title size */
+        color: #333;
+        margin-bottom: 20px; /* Reduced margin */
+        font-weight: 500;
+    }
+
     .form-body {
         display: flex;
         flex-direction: column;
-        gap: 20px;
+        gap: 15px; /* Reduced gap */
+    }
+
+    .form-group {
+        margin-bottom: 10px; /* Reduced space between fields */
     }
 
     .form-label {
+        display: block;
         font-weight: 600;
-        margin-bottom: 8px;
+        margin-bottom: 5px; /* Less margin */
         color: #333;
     }
 
     .form-input {
         width: 100%;
-        padding: 14px 18px;
-        font-size: 1rem;
+        padding: 12px 18px; /* Moderate padding */
+        font-size: 1rem; /* Moderate font size */
         border: 1px solid #ddd;
-        border-radius: 8px;
+        border-radius: 6px; /* More rounded corners */
         transition: border-color 0.3s, box-shadow 0.3s;
         color: #555;
         background: #f9f9f9;
@@ -75,27 +85,25 @@
         border-color: #007bff;
         outline: none;
         background-color: #fff;
-        box-shadow: 0 0 8px rgba(0, 123, 255, 0.4);
+        box-shadow: 0 0 6px rgba(0, 123, 255, 0.4);
     }
 
     .form-actions {
         text-align: center;
-        margin-top: 30px;
+        margin-top: 20px; /* Reduced top margin */
     }
 
     .button-52 {
-        font-size: 16px;
-        font-weight: 200;
+        font-size: 16px; /* Moderate font size */
+        font-weight: 300;
         letter-spacing: 1px;
-        padding: 13px 20px;
+        padding: 12px 20px; /* Moderate padding */
         outline: 0;
         border: 1px solid black;
         cursor: pointer;
         position: relative;
         background-color: rgba(0, 0, 0, 0);
         user-select: none;
-        -webkit-user-select: none;
-        touch-action: manipulation;
         width: 100%;
         transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
@@ -119,6 +127,33 @@
 
     .button-52:hover {
         transform: translateY(-3px);
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .back-link {
+        display: inline-block;
+        margin-top: 20px; /* Reduced margin */
+        color: #007bff;
+        text-decoration: none;
+        font-weight: 600;
+    }
+
+    .back-link:hover {
+        text-decoration: underline;
+    }
+
+    /* Role Option Styles */
+    .role-options {
+        display: flex;
+        flex-direction: column;
+        gap: 10px; /* Reduced gap */
+    }
+
+    .role-option input[type="radio"] {
+        margin-right: 10px;
+    }
+
+    .form-input-radio {
+        width: auto;
     }
 </style>

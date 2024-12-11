@@ -87,15 +87,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getRoles(): array
     {
-        return $this->roles;
-        //$roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        //$roles[] = 'ROLE_USER';
-
-        //return array_unique($roles);
-
-
+        return array_unique($this->roles); // Just return the roles as they are assigned
     }
+
+
+
 
 
     /**
@@ -103,10 +99,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function setRoles(array $roles): static
     {
-        $this->roles = $roles;
+        // If there are no roles provided, add 'ROLE_USER' by default
+        if (empty($roles)) {
+            $roles[] = 'ROLE_USER';
+        }
+
+        $this->roles = array_unique($roles); // Remove duplicates
 
         return $this;
     }
+
+
 
     /**
      * @see PasswordAuthenticatedUserInterface
