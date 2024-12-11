@@ -1,9 +1,10 @@
+{% extends 'base.html.twig' %}
 {% block body %}
     <div class="container mt-5">
-        <div class="row justify-content-center">
+        <div class="row justify-content-center" >
             <div class="col-lg-6 col-md-8 col-sm-10">
                 <div class="card shadow-lg">
-                    <h3 class="card-header text-center text-primary">Register</h3>
+                    <h3 class="card-header">Create an Account</h3>
                     <div class="card-body">
                         <!-- Display form errors -->
                         {% if form_errors(registrationForm) %}
@@ -29,21 +30,30 @@
                                 'attr': { 'class': 'form-control', 'placeholder': 'Enter your password' }
                             }) }}
                         </div>
-                        {{ form_end(registrationForm) }}
+
+                        <!-- Roles input with placeholder -->
+                        <div class="form-group mb-3">
+                            {{ form_row(registrationForm.roles, {
+                                'attr': {
+                                    'class': 'form-control',
+                                    'placeholder': 'Please choose your role'
+                                }
+                            }) }}
+                        </div>
 
                         <!-- Submit button -->
                         <div class="d-grid">
-                            <button type="submit" class="btn btn-dark btn-block">
+                            <button class="button-52" type="submit">
                                 Sign Up
                             </button>
                         </div>
+
+                        {{ form_end(registrationForm) }}
 
                         <div class="text-center mt-3">
                             <span>Already have an account? </span>
                             <a href="{{ path('app_login') }}" class="text-primary">Login now</a>
                         </div>
-
-
                     </div>
                 </div>
             </div>
@@ -52,65 +62,115 @@
 
     <!-- Custom CSS -->
     <style>
-        /* General card styling */
+        /* General Styles */
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: #f4f4f4;
+            min-height: 100vh;
+            margin: 0;
+        }
+
         .card {
             border-radius: 12px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            margin-top:10px;
+            width:450px;
         }
 
         .card-header {
-            background-color: #007bff;
-            color: white;
+            background-color: #1F509A;
             font-size: 1.5rem;
-            padding: 1rem;
+            padding: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-align: center;
+            color: #FFFFFF;
+
         }
 
         .card-body {
             background-color: #f8f9fa;
-            padding: 2rem;
+            padding: 1.5rem; /* Reduced padding to make the card a bit smaller */
         }
 
         /* Form fields styling */
         .form-control {
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            font-size: 1rem;
+            transition: box-shadow 0.3s ease;
+            height: 40px; /* Reduced height for input fields */
         }
 
         .form-control:focus {
             border-color: #007bff;
-            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+            box-shadow: 0 0 8px rgba(0, 123, 255, 0.4);
+            outline: none;
         }
 
-        /* Submit button styling */
-        .btn-dark {
-            background-color: #343a40;
-            border-color: #343a40;
-            font-size: 1.1rem;
-            padding: 10px 20px;
-            border-radius: 50px;
-            transition: background-color 0.3s ease;
+        .form-group label {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
         }
 
-        .btn-dark:hover {
-            background-color: #23272b;
+        /* Button 52 Styles */
+        .button-52 {
+            font-size: 16px;
+            font-weight: 200;
+            letter-spacing: 1px;
+            padding: 13px 20px 13px;
+            outline: 0;
+            border: 1px solid black;
+            cursor: pointer;
+            position: relative;
+            background-color: rgba(0, 0, 0, 0);
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+            width: 100%;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        /* Login link styling */
-        .text-center a {
-            text-decoration: none;
-            color: #007bff;
-            font-weight: bold;
+        .button-52:after {
+            content: "";
+            background-color: #ffe54c;
+            width: 100%;
+            z-index: -1;
+            position: absolute;
+            height: 100%;
+            top: 7px;
+            left: 7px;
+            transition: 0.2s;
+
         }
 
-        .text-center a:hover {
-            color: #0056b3;
+        .button-52:hover:after {
+            top: 0px;
+            left: 0px;
         }
 
-        /* Responsive design adjustments */
-        @media (max-width: 576px) {
-            .col-sm-10 {
-                max-width: 100%;
-            }
+        .button-52:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
-    </style>
+
+        .alert {
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+
+        .alert-danger {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .row{
+            margin-left: 10%;
+        }
+  </style>
 {% endblock %}
+

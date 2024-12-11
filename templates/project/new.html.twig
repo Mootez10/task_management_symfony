@@ -4,52 +4,121 @@
 
 {% block body %}
     <div class="container mt-5">
-        <h1 class="mb-4 text-center text-primary">Create New Project</h1>
-
+        <h1 >Create New Project</h1>
         <div class="card p-4 shadow-sm">
             {{ include('project/_form.html.twig') }}
-        </div>
-
-        <div class="text-center mt-3">
-            <a href="{{ path('app_project_index') }}" class="btn btn-secondary">Back to List</a>
+            <a href="{{ path('app_project_index') }}" class="btn-back">Back to List</a>
         </div>
     </div>
 
     <style>
+        body{
+            background-color: #F5EFFF;
+            }
         .container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
+            padding: 20px;
+
         }
 
         h1 {
-            color: #007bff;
+            color: #1F509A;
+            text-align: center;
+            padding-bottom: 5px;
+            font-weight: bold;
+            font-family: 'Montserrat', sans-serif;
         }
 
         .card {
             border: 1px solid #ddd;
-            border-radius: 8px;
-            background-color: #f8f9fa;
+            border-radius: 20px;
+            box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px !important;
+            height: 85vh;
+            background-image: url('/assets/img/projectbg.avif');
+            background-size: auto 80%;
+            background-repeat: no-repeat;
+            background-position: right center;
+
         }
 
         .card p {
             margin-bottom: 0;
         }
 
-        .btn-secondary {
-            background-color: #6c757d;
-            border-color: #6c757d;
-            color: #fff;
-            padding: 10px 20px;
-            font-size: 16px;
-        }
-
-        .btn-secondary:hover {
-            background-color: #5a6268;
-            border-color: #545b62;
-        }
-
         .mt-3 {
             margin-top: 1rem;
         }
+        .required {
+            width: 150px; /* Fixed width for all labels */
+            margin-right: 15px; /* Space between label and input */
+            font-weight: bold;
+            font-size: 1rem;
+            font-family: 'Montserrat', sans-serif;
+
+        }
+        #project_name, #project_description, #project_start_date, #project_end_date, #project_manager{
+            width: 30%; /* Input fills available space *
+           padding: 10px;
+           border-radius: 8px; /* Rounded corners */
+            font-size: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            border-radius: 8px; /* Rounded corners */
+            border: 1px solid #ccc; /* Border color */
+            font-size: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin: 8px;
+        }
+
+        /* les boutons*/
+        .btn-back {
+            width: 170px;
+            background-color: #fff;
+            border: 0 solid black;
+            border-radius: 1.5rem;
+            box-sizing: border-box;
+            color: #0d172a;
+            cursor: pointer;
+            display: inline-block;
+            font-family: "Basier circle",-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+            font-size: 1.1rem;
+            font-weight: 600;
+            line-height: 1;
+            padding: 1rem 1.6rem;
+            text-align: center;
+            text-decoration: none #0d172a solid;
+            text-decoration-thickness: auto;
+            transition: all .1s cubic-bezier(.4, 0, .2, 1);
+            box-shadow: 0px 1px 2px rgba(166, 175, 195, 0.25);
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+            margin-top: 10px;
+        }
+        .btn-back:hover {
+            background-color: #1e293b;
+            color: #fff;
+        }
+        .btn{
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+            font-size: 16px;
+            width: 100px;
+            margin-top: 10px;
+            padding: 0.7em 6.4em 0.7em 4.1em;
+            color: white;
+            background: #ad5389;
+            background: linear-gradient(0deg, rgba(20,167,62,1) 0%, rgba(102,247,113,1) 100%);
+            border: none;
+            box-shadow: 0 0.7em 1.5em -0.5em #14a73e98;
+            letter-spacing: 0.05em;
+            border-radius: 20em;
+            cursor: pointer;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+        }/*design btn save
     </style>
 {% endblock %}

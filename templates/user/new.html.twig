@@ -1,11 +1,114 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New User{% endblock %}
+{% block title %}Create New User{% endblock %}
 
 {% block body %}
-    <h1>Create new User</h1>
+    <div class="form-container">
+        <form method="post" class="form">
+            <h1 class="form-title">Create New User</h1>
 
-    {{ include('user/_form.html.twig') }}
+            {% if form_errors(form) %}
+                <div class="alert alert-danger">
+                    {{ form_errors(form) }}
+                </div>
+            {% endif %}
 
-    <a href="{{ path('app_user_index') }}">back to list</a>
+            {{ include('user/_form.html.twig', {button_label: 'Create'}) }}
+
+            <div class="back-to-list">
+                <a href="{{ path('app_user_index') }}" class="back-link">Back to List</a>
+            </div>
+        </form>
+    </div>
+
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: #f4f4f4;
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .form-container {
+            width: 450px;
+            padding: 40px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin: 100px auto;
+            transform: scale(0.98);
+            opacity: 0;
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        .form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-title {
+            text-align: center;
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 25px;
+            font-weight: 500;
+            opacity: 0;
+            animation: fadeInText 1s ease-out forwards;
+            animation-delay: 0.4s;
+        }
+
+        .alert {
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .alert-danger {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .back-to-list {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .back-link {
+            color: #007bff;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Keyframe Animations */
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes fadeInText {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+    </style>
 {% endblock %}

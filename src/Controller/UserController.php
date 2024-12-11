@@ -17,6 +17,7 @@ final class UserController extends AbstractController
 {
     #[IsGranted("ROLE_ADMIN")]
     #[Route(name: 'app_user_index', methods: ['GET'])]
+
     public function index(UserRepository $userRepository): Response
     {
         return $this->render('user/index.html.twig', [
@@ -27,6 +28,7 @@ final class UserController extends AbstractController
     #[Route('/new', name: 'app_user_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
+
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
@@ -69,7 +71,7 @@ final class UserController extends AbstractController
             'form' => $form,
         ]);
     }
-
+    #[IsGranted("ROLE_ADMIN")]
     #[Route('/{id}', name: 'app_user_delete', methods: ['POST'])]
     public function delete(Request $request, User $user, EntityManagerInterface $entityManager): Response
     {
@@ -80,4 +82,8 @@ final class UserController extends AbstractController
 
         return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
     }
+
+
+
+
 }
