@@ -1,8 +1,18 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Create New User{% endblock %}
+{% extends 'admin/index.html.twig' %}
 
 {% block body %}
+
+{% block sidebar %}
+    {{ parent() }}
+{% endblock %}
+
+  {% block nav %}
+      {{ parent() }}
+  {% endblock %}
+
+
+
+{% block contentBody %}
     <div class="form-container">
         <form method="post" class="form">
             <h1 class="form-title">Create New User</h1>
@@ -111,4 +121,5 @@
             }
         }
     </style>
+{% endblock %}
 {% endblock %}

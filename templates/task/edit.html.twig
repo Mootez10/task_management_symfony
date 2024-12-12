@@ -1,6 +1,16 @@
-{% block title %}{% endblock %}
+{% extends 'admin/index.html.twig' %}
 
 {% block body %}
+
+{% block sidebar %}
+    {{ parent() }}
+{% endblock %}
+
+  {% block nav %}
+      {{ parent() }}
+  {% endblock %}
+
+{% block contentBody %}
     <div class="container mt-5">
         <h1>Edit Task</h1>
         <div class="card">
@@ -102,6 +112,7 @@
             color: #fff;
         }
     </style>
+{% endblock %}
 {% endblock %}
 
 

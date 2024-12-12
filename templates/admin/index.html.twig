@@ -34,6 +34,7 @@
 </head>
 
 <body>
+{% block body %}
 <div class="container-xxl position-relative bg-white d-flex p-0">
     <!-- Spinner Start -->
     <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
@@ -44,6 +45,7 @@
     <!-- Spinner End -->
 
 
+    {% block sidebar %}
     <!-- Sidebar Start -->
     <div class="sidebar pe-4 pb-3">
         <nav class="navbar bg-light navbar-light">
@@ -85,8 +87,10 @@
         </nav>
     </div>
     <!-- Sidebar End -->
+    {% endblock %}
 
 
+    {% block nav %}
     <!-- Content Start -->
     <div class="content">
         <!-- Navbar Start -->
@@ -176,32 +180,37 @@
             </div>
         </nav>
         <!-- Navbar End -->
+        {% endblock %}
 
 
-        <!-- Footer Start -->
-        <div class="container-fluid pt-4 px-4">
-            <div class="bg-light rounded-top p-4">
-                <div class="row">
-                    <div class="col-12 col-sm-6 text-center text-sm-start">
-                        &copy; <a href="#">Your Site Name</a>, All Right Reserved.
-                    </div>
-                    <div class="col-12 col-sm-6 text-center text-sm-end">
-                        <!--/*** This template is free as long as you keep the footer authorâ€™s credit link/attribution link/backlink. If you'd like to use the template without the footer authorâ€™s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-                        Designed By <a href="https://htmlcodex.com">HTML Codex</a>
-                        </br>
-                        Distributed By <a class="border-bottom" href="https://themewagon.com" target="_blank">ThemeWagon</a>
+        {% block contentBody %}
+            <!-- Footer Start -->
+            <div class="container-fluid pt-4 px-4">
+                <div class="bg-light rounded-top p-4">
+                    <div class="row">
+                        <div class="col-12 col-sm-6 text-center text-sm-start">
+                            &copy; <a href="#">Events</a>, All Right Reserved.
+                        </div>
+                        <div class="col-12 col-sm-6 text-center text-sm-end">
+                            <!--/*** This template is free as long as you keep the footer authorâ€™s credit link/attribution link/backlink. If you'd like to use the template without the footer authorâ€™s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
+                            Designed By <a href="https://htmlcodex.com">Aouinti Mootez</a>
+
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- Footer End -->
+            <!-- Footer End -->
+        {% endblock %}
     </div>
     <!-- Content End -->
+    {% endblock %}
 
 
     <!-- Back to Top -->
     <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
 </div>
+
+
 
 <!-- JavaScript Libraries -->
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>

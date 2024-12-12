@@ -1,8 +1,18 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Create New Task{% endblock %}
+{% extends 'admin/index.html.twig' %}
 
 {% block body %}
+
+{% block sidebar %}
+    {{ parent() }}
+{% endblock %}
+
+  {% block nav %}
+      {{ parent() }}
+  {% endblock %}
+
+
+
+{% block contentBody %}
     <div class="container mt-5">
         <h1 >Create New Task</h1>
 
@@ -33,7 +43,6 @@
             border: 1px solid #ddd;
             border-radius: 20px;
             box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px !important;
-            height: 85vh;
             background-image: url('/assets/img/task_background.jpg');
             background-size: auto 80%;
             background-repeat: no-repeat;
@@ -121,4 +130,5 @@
            }
 
     </style>
+{% endblock %}
 {% endblock %}

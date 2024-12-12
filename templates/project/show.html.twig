@@ -1,8 +1,18 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Project Details{% endblock %}
+{% extends 'admin/index.html.twig' %}
 
 {% block body %}
+
+{% block sidebar %}
+    {{ parent() }}
+{% endblock %}
+
+  {% block nav %}
+      {{ parent() }}
+  {% endblock %}
+
+
+
+{% block contentBody %}
     <div class="container mt-5">
         <h1 class="mb-4 text-center text-primary">Project Details</h1>
 
@@ -87,4 +97,5 @@
             margin-top: 1.5rem;
         }
     </style>
+{% endblock %}
 {% endblock %}
