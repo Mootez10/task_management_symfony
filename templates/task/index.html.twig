@@ -1,8 +1,18 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Task List{% endblock %}
+{% extends 'admin/index.html.twig' %}
 
 {% block body %}
+
+{% block sidebar %}
+    {{ parent() }}
+{% endblock %}
+
+  {% block nav %}
+      {{ parent() }}
+  {% endblock %}
+
+
+
+{% block contentBody %}
 <div class="container mt-5">
     <h1 class="mb-4 text-center text-primary">Task Index</h1>
 
@@ -147,3 +157,4 @@
     }
     </style>
     {% endblock %}
+{% endblock %}

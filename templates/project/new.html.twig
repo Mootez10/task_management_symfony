@@ -1,8 +1,18 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Create New Project{% endblock %}
+{% extends 'admin/index.html.twig' %}
 
 {% block body %}
+
+{% block sidebar %}
+    {{ parent() }}
+{% endblock %}
+
+  {% block nav %}
+      {{ parent() }}
+  {% endblock %}
+
+
+
+{% block contentBody %}
     <div class="container mt-5">
         <h1 >Create New Project</h1>
         <div class="card p-4 shadow-sm">
@@ -121,4 +131,5 @@
             touch-action: manipulation;
         }/*design btn save
     </style>
+{% endblock %}
 {% endblock %}

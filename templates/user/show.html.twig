@@ -1,8 +1,18 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}User Details{% endblock %}
+{% extends 'admin/index.html.twig' %}
 
 {% block body %}
+
+{% block sidebar %}
+    {{ parent() }}
+{% endblock %}
+
+  {% block nav %}
+      {{ parent() }}
+  {% endblock %}
+
+
+
+{% block contentBody %}
     <div class="container mt-4">
         <h1 class="text-center mb-4">User Details</h1>
 
@@ -37,4 +47,5 @@
             {{ include('user/_delete_form.html.twig') }}
         </div>
     </div>
+{% endblock %}
 {% endblock %}
