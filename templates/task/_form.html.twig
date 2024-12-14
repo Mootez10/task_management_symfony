@@ -1,49 +1,50 @@
 {{ form_start(form) }}
 
-{% for field in form %}
-    <div class="form-group">
-        {{ form_label(field, null, { 'label_attr': { 'class': 'form-label required' } }) }}
-        {{ form_widget(field, { 'attr': { 'class': 'form-control', 'style': 'width: 50%; padding: 15px; font-size: 1.1rem; margin-bottom: 20px; border-radius: 8px;' } }) }}
-        {{ form_errors(field) }}
-    </div>
-{% endfor %}
+<div class="form-row">
+    {% for field in form %}
+        {% if field.vars.name != '_token' %}
+            <div class="form-group">
+                {{ form_label(field, null, { 'label_attr': { 'class': 'form-label required' } }) }}
+                {{ form_widget(field, { 'attr': { 'class': 'form-control small-field' } }) }}
+                {{ form_errors(field) }}
+            </div>
+        {% endif %}
+    {% endfor %}
+</div>
 
 <div class="form-actions">
     <button id="btn-update" >{{ button_label|default('Save') }}</button>
     <button type="button" class="btn-cancel">Cancel</button>
+    <a href="{{ path('app_task_index') }}" class="btn-back">Back to List</a>
 </div>
 
 <style>
-    .btn-cancel {
-        width: 150px;
-        background-color: #f8f9fa; /* Light gray background */
-        border: 1px solid #d9534f; /* Red border */
-        border-radius: 1.5rem;
-        box-sizing: border-box;
-        color: #d9534f; /* Red text */
-        cursor: pointer;
-        display: inline-block;
-        font-family: "Basier circle", -apple-system, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-        font-size: 1rem;
-        font-weight: 600;
-        line-height: 1;
-        padding: 0.8rem 1.2rem;
-        text-align: center;
-        text-decoration: none; /* No underline */
-        transition: all 0.3s ease;
-        box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.15); /* Subtle shadow */
-        margin-top: 10px;
-        margin-left: 10px; /* Space between buttons */
+    .form-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px; /* Adjust space between inputs */
+        margin-bottom: 20px; /* Space between rows */
     }
 
-    .btn-cancel:hover {
-        background-color: #d9534f; /* Red background */
-        color: #fff; /* White text */
-        border-color: #c9302c; /* Darker red border */
-        box-shadow: 0px 4px 6px rgba(217, 83, 79, 0.4); /* Elevated shadow */
-        text-decoration: none; /* Ensure no underline on hover */
+    .form-group {
+        flex: 1;
+        min-width: 100%; /* Make each input take full width */
+        max-width: 300px; /* Limit width to a maximum size */
+        margin: 20px;
     }
 
+    /* Common class for all form fields */
+    .small-field {
+        width: 100%; /* All inputs take full width within the .form-group */
+        padding: 8px; /* Slightly smaller padding */
+        border-radius: 4px; /* Smaller border-radius */
+        font-size: 0.85rem; /* Smaller font size */
+        border: 1px solid #ccc;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        margin: 6px 0;
+    }
+
+    /* Button styles */
     #btn-update {
         width: 150px;
         background-color: #28a745; /* Green background */
@@ -75,6 +76,57 @@
     #btn-update:active {
         box-shadow: 0 0.3em 1em -0.5em #14a73e98;
     }
-</style>
-{{ form_end(form) }}
 
+    .btn-cancel {
+        width: 150px;
+        background-color: #f8f9fa; /* Light gray background */
+        border: 1px solid #d9534f; /* Red border */
+        border-radius: 1.5rem;
+        box-sizing: border-box;
+        color: #d9534f; /* Red text */
+        cursor: pointer;
+        display: inline-block;
+        font-family: "Basier circle", -apple-system, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+        font-size: 1rem;
+        font-weight: 600;
+        line-height: 1;
+        padding: 0.8rem 1.2rem;
+        text-align: center;
+        text-decoration: none; /* No underline */
+        transition: all 0.3s ease;
+        box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.15); /* Subtle shadow */
+        margin-top: 10px;
+        margin-left: 10px; /* Space between buttons */
+    }
+
+    .btn-cancel:hover {
+        background-color: #d9534f; /* Red background */
+        color: #fff; /* White text */
+        border-color: #c9302c; /* Darker red border */
+        box-shadow: 0px 4px 6px rgba(217, 83, 79, 0.4); /* Elevated shadow */
+        text-decoration: none; /* Ensure no underline on hover */
+    }
+
+    .btn-back {
+        width: 150px;
+        background-color: #fff;
+        border: 0 solid black;
+        border-radius: 1.5rem;
+        color: #0d172a;
+        cursor: pointer;
+        display: inline-block;
+        font-size: 0.95rem;
+        font-weight: 600;
+        padding: 0.8rem 1.4rem;
+        text-align: center;
+        transition: all .1s cubic-bezier(.4, 0, .2, 1);
+        box-shadow: 0px 1px 2px rgba(166, 175, 195, 0.25);
+    }
+
+    .btn-back:hover {
+        background-color: #1e293b;
+        color: #fff;
+    }
+</style>
+
+{{ form_end(form) }}

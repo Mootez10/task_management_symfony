@@ -2,25 +2,131 @@
 
 {% block body %}
 
-{% block sidebar %}
-    {{ parent() }}
-{% endblock %}
+    {% block sidebar %}
+        {{ parent() }}
+    {% endblock %}
 
-  {% block nav %}
-      {{ parent() }}
-  {% endblock %}
+    {% block nav %}
+        {{ parent() }}
+    {% endblock %}
 
+    {% block contentBody %}
+        <div class="edit-container" style="background-image: url('/assets/img/r31.jpg'); background-size: cover">
+            <h1 class="form-title">Edit User</h1>
 
+            {{ include('user/_form.html.twig', {'button_label': 'Update'}) }}
 
-{% block contentBody %}
-    <div class="edit-container">
-        <h1 class="form-title">Edit User</h1>
+            <!-- Container for Buttons -->
+            <div class="button-container">
+                <!-- Back to List Button -->
+                <a href="{{ path('app_user_index') }}" class="button-33 back-to-list">Back to List</a>
 
-        {{ include('user/_form.html.twig', {'button_label': 'Update'}) }}
+                <!-- Delete Button -->
+                <form method="post" action="{{ path('app_user_delete', {'id': user.id}) }}" onsubmit="return confirm('Are you sure you want to delete this user?');">
+                    <button type="submit" class="button-33 delete-btn">Delete</button>
+                </form>
+            </div>
+        </div>
 
-        <a href="{{ path('app_user_index') }}" class="back-link">Back to List</a>
+    {% endblock %}
 
-        {{ include('user/_delete_form.html.twig') }}
-    </div>
-{% endblock %}
+    <style>
+        a {
+            text-decoration: none;
+        }
+
+        /* Container for Buttons: Align horizontally with spacing */
+        .button-container {
+            display: flex;
+            justify-content: space-between; /* Align buttons at the ends */
+            align-items: center; /* Align vertically */
+            gap: 20px; /* Space between the buttons */
+            margin-top: 20px; /* Space above the buttons */
+        }
+
+        /* Shared Button Styles */
+        .button-33 {
+            border-radius: 50px;
+            color: white;
+            cursor: pointer;
+            font-family: 'Roboto', sans-serif;
+            padding: 8px 16px; /* Smaller padding */
+            text-align: center;
+            text-decoration: none;
+            transition: all 250ms;
+            border: 0;
+            font-size: 14px; /* Smaller font size */
+        }
+
+        .button-33:hover {
+            transform: scale(1.05) rotate(-1deg);
+        }
+
+        /* Delete Button (Red) */
+        .delete-btn {
+            background-color: #f44336; /* Red background */
+        }
+
+        .delete-btn:hover {
+            box-shadow: rgba(255, 0, 0, .35) 0 -25px 18px -14px inset, rgba(255, 0, 0, .25) 0 1px 2px, rgba(255, 0, 0, .25) 0 2px 4px, rgba(255, 0, 0, .25) 0 4px 8px, rgba(255, 0, 0, .25) 0 8px 16px, rgba(255, 0, 0, .25) 0 16px 32px;
+        }
+
+        /* Back to List Button (Green) */
+        .back-to-list {
+            background-color: #4CAF50; /* Green background */
+        }
+
+        .back-to-list:hover {
+            box-shadow: rgba(76, 175, 80, .35) 0 -25px 18px -14px inset, rgba(76, 175, 80, .25) 0 1px 2px, rgba(76, 175, 80, .25) 0 2px 4px, rgba(76, 175, 80, .25) 0 4px 8px, rgba(76, 175, 80, .25) 0 8px 16px, rgba(76, 175, 80, .25) 0 16px 32px;
+        }
+
+        /* Adjust Radio/Checkbox Options */
+        .form-group {
+            margin-bottom: 15px; /* Add space between each group of choices */
+        }
+
+        /* Add Space Between Radio Button and Label */
+        .form-group input[type="radio"],
+        .form-group input[type="checkbox"] {
+            margin-right: 10px; /* Space between radio button and label text */
+        }
+
+        /* Add Space Between Individual Choices */
+        .form-group .role-options {
+            display: flex;
+            flex-direction: column; /* Stack choices vertically */
+            gap: 20px; /* Add space between the choices */
+        }
+
+        /* Add Space Between Label Text and Radio */
+        .form-group .role-option {
+            display: flex;
+            align-items: center; /* Align radio button and label text vertically */
+            gap: 15px; /* Space between radio and label text */
+        }
+        #user_roles_0{
+            margin: 10px;
+        }
+        #user_roles_1, #user_roles_2, #user_roles_0{
+            margin: 10px;
+        }
+.form-title{
+   font-weight: bold;
+    font-family: 'Montserrat', sans-serif;
+    color: #001A6E;
+}
+        .edit-container {
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+    </style>
 {% endblock %}

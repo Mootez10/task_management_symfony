@@ -2,116 +2,150 @@
 
 {% block body %}
 
-{% block sidebar %}
-    {{ parent() }}
-{% endblock %}
+    {% block sidebar %}
+        {{ parent() }}
+    {% endblock %}
 
-  {% block nav %}
-      {{ parent() }}
-  {% endblock %}
+    {% block nav %}
+        {{ parent() }}
+    {% endblock %}
 
+    {% block contentBody %}
+        <div class="container mt-5">
+            <!-- Project Index Section -->
+            <div class="project-index">
+                <h1 class="mb-4 text-center text-purple">Project Index</h1>
 
+                <div class="table-responsive shadow rounded">
+                    <table class="table custom-table">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for project in projects %}
+                            <tr>
+                                <td>{{ project.id }}</td>
+                                <td>{{ project.name }}</td>
+                                <td>{{ project.description }}</td>
+                                <td>{{ project.startDate ? project.startDate|date('Y-m-d H:i:s') : '' }}</td>
+                                <td>{{ project.endDate ? project.endDate|date('Y-m-d H:i:s') : '' }}</td>
+                                <td>
+                                    <a href="{{ path('app_project_show', {'id': project.id}) }}" class="btn btn-outline-purple btn-sm">Show</a>
+                                    <a href="{{ path('app_project_edit', {'id': project.id}) }}" class="btn btn-outline-purple btn-sm">Edit</a>
+                                    <a href="{{ path('app_project_delete', {'id': project.id}) }}" class="btn btn-outline-danger btn-sm">Delete</a>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="6" class="text-center text-muted">No records found</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
-{% block contentBody %}
-    <div class="container mt-5">
-        <h1 class="mb-4 text-center text-primary">Project Index</h1>
-
-        <div class="table-responsive">
-            <table class="table table-striped table-hover table-bordered">
-                <thead class="thead-dark">
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>Start Date</th>
-                    <th>End Date</th>
-                    <th>Actions</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for project in projects %}
-                    <tr>
-                        <td>{{ project.id }}</td>
-                        <td>{{ project.name }}</td>
-                        <td>{{ project.description }}</td>
-                        <td>{{ project.startDate ? project.startDate|date('Y-m-d H:i:s') : '' }}</td>
-                        <td>{{ project.endDate ? project.endDate|date('Y-m-d H:i:s') : '' }}</td>
-                        <td>
-                            <a href="{{ path('app_project_show', {'id': project.id}) }}" class="btn btn-primary btn-sm">Show</a>
-                            <a href="{{ path('app_project_edit', {'id': project.id}) }}" class="btn btn-warning btn-sm">Edit</a>
-                            <a href="{{ path('app_project_delete', {'id': project.id}) }}" class="btn btn-danger btn-sm">Delete</a>
-                        </td>
-                    </tr>
-                {% else %}
-                    <tr>
-                        <td colspan="6" class="text-center">No records found</td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
+            <!-- Create New Project Button Section, aligned to the right -->
+            <div class="create-new-project text-end mt-3">
+                <a href="{{ path('app_project_new') }}" class="btn btn-gradient btn-lg shadow-sm">
+                    <i class="bi bi-plus-circle"></i> Create New Project
+                </a>
+            </div>
         </div>
 
-        <div class="text-center mt-3">
-            <a href="{{ path('app_project_new') }}" class="btn btn-success">Create New Project</a>
-        </div>
-    </div>
+        <style>
+            /* General Container */
+            .container {
+                margin: 0 auto;
+                background: #fff;
+                padding: 20px;
+            }
 
-    <style>
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+            /* Header */
+            h1 {
+                font-family: 'Poppins', sans-serif;
+                font-weight: 600;
+                color: #3B1E54; /* Purple */
+                margin-bottom: 20px;
+            }
 
-        h1 {
-            color: #007bff;
-        }
+            /* Table Styles */
+            .custom-table {
+                width: 100%;
+                border-collapse: collapse;
+            }
 
-        .table {
-            font-size: 16px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-        }
+            .custom-table th {
+                background-color: #3B1E54; /* Purple */
+                color: white;
+                font-weight: bold;
+                padding: 10px;
+                text-align: left;
+            }
 
-        .table th {
-            background-color: #343a40;
-            color: white;
-        }
+            .custom-table td {
+                padding: 12px 10px;
+                font-size: 14px;
+                color: #555;
+            }
 
-        .table-bordered td, .table-bordered th {
-            border: 1px solid #ddd;
-        }
+            .custom-table tr:nth-child(even) {
+                background-color: #f9f9f9;
+            }
 
-        .table-striped tbody tr:nth-child(odd) {
-            background-color: #f9f9f9;
-        }
+            .custom-table tr:hover {
+                background-color: #f3e5f5; /* Light purple */
+                transition: background-color 0.3s;
+            }
 
-        .table-hover tbody tr:hover {
-            background-color: #f1f1f1;
-        }
+            /* Buttons */
+            .btn-gradient {
+                background: linear-gradient(90deg, #9C4D97 0%, #3B1E54 100%);
+                border: none;
+                color: #fff;
+                padding: 10px 20px;
+                border-radius: 20px;
+                transition: all 0.3s ease-in-out;
+            }
 
-        .btn-sm {
-            font-size: 14px;
-            padding: 6px 12px;
-        }
+            .btn-gradient:hover {
+                background: linear-gradient(90deg, #3B1E54 0%, #9C4D97 100%);
+                transform: scale(1.05);
+            }
 
-        .btn-primary {
-            background-color: #007bff;
-            border-color: #007bff;
-        }
+            .btn-outline-purple {
+                border: 1px solid #3B1E54;
+                color: #3B1E54;
+            }
 
-        .btn-warning {
-            background-color: #ffc107;
-            border-color: #ffc107;
-        }
+            .btn-outline-danger {
+                border: 1px solid #dc3545;
+                color: #dc3545;
+            }
 
-        .btn-success {
-            background-color: #28a745;
-            border-color: #28a745;
-        }
+            .btn-sm {
+                font-size: 14px;
+                padding: 6px 12px;
+            }
 
-        .mt-3 {
-            margin-top: 1rem;
-        }
-    </style>
-{% endblock %}
+            .mt-3 {
+                margin-top: 1rem;
+            }
+
+            .project-index {
+                margin-bottom: 30px;
+            }
+
+            .create-new-project {
+                margin-top: 20px;
+            }
+        </style>
+    {% endblock %}
 {% endblock %}
