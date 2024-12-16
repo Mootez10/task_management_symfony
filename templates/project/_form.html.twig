@@ -10,67 +10,34 @@
 
 <div class="form-actions">
     <button class="btn-update">{{ button_label|default('Save') }}</button>
-    <button type="button" class="btn-cancel">Cancel</button>
+    <button type="button" id="btn-cancel">Cancel</button>
 </div>
 <style>
-    .btn-cancel {
-        width: 150px;
-        background-color: #f8f9fa; /* Light gray background */
-        border: 1px solid #d9534f; /* Red border */
-        border-radius: 1.5rem;
-        box-sizing: border-box;
-        color: #d9534f; /* Red text */
-        cursor: pointer;
-        display: inline-block;
-        font-family: "Basier circle", -apple-system, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-        font-size: 1rem;
-        font-weight: 600;
-        line-height: 1;
-        padding: 0.8rem 1.2rem;
-        text-align: center;
-        text-decoration: none; /* No underline */
-        transition: all 0.3s ease;
-        box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.15); /* Subtle shadow */
-        margin-top: 10px;
-        margin-left: 10px; /* Space between buttons */
-    }
-
-    .btn-cancel:hover {
-        background-color: #d9534f; /* Red background */
-        color: #fff; /* White text */
-        border-color: #c9302c; /* Darker red border */
-        box-shadow: 0px 4px 6px rgba(217, 83, 79, 0.4); /* Elevated shadow */
-        text-decoration: none; /* Ensure no underline on hover */
-    }
-    .btn-update{
-        width: 150px;
-        background-color: #28a745; /* Green background */
+    .btn-update {
+        background-color: #1F509A; /* Example color */
+        color: white;
         border: none;
-        border-radius: 1.5rem;
-        box-sizing: border-box;
-        color: #fff; /* White text */
+        padding: 10px 20px;
+        font-size: 16px;
         cursor: pointer;
-        display: inline-block;
-        font-family: "Basier circle", -apple-system, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-        font-size: 1rem;
-        font-weight: 600;
-        line-height: 1;
-        padding: 0.8rem 1.2rem;
-        text-align: center;
-        text-decoration: none; /* No underline */
-        transition: all 0.3s ease;
-        box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.15); /* Subtle shadow */
-        margin-top: 10px;
-        margin-right: 10px; /* Space between buttons */
-    }
-    #btn-update:hover {
-        background-color: #218838; /* Darker green */
-        color: #fff; /* White text */
-        box-shadow: 0px 4px 6px rgba(40, 167, 69, 0.4); /* Elevated shadow */
     }
 
-    #btn-update:active {
-        box-shadow: 0 0.3em 1em -0.5em #14a73e98;
+    .btn-update:hover {
+        background-color: #155A8A; /* Hover color */
+    }
+
+    #btn-cancel {
+        background-color: red !important;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    #btn-cancel:hover {
+        background-color: darkred !important;
     }
 </style>
+
 {{ form_end(form) }}

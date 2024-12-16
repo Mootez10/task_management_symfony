@@ -2,100 +2,148 @@
 
 {% block body %}
 
-{% block sidebar %}
-    {{ parent() }}
-{% endblock %}
+    {% block sidebar %}
+        {{ parent() }}
+    {% endblock %}
 
-  {% block nav %}
-      {{ parent() }}
-  {% endblock %}
+    {% block nav %}
+        {{ parent() }}
+    {% endblock %}
 
+    {% block contentBody %}
+        <div class="container-fluid mt-0"> <!-- Use container-fluid for full-width -->
+            <h1 class="mb-4 text-center">Project Details</h1>
 
-
-{% block contentBody %}
-    <div class="container mt-5">
-        <h1 class="mb-4 text-center text-primary">Project Details</h1>
-
-        <div class="card shadow-sm">
-            <div class="card-body">
-                <table class="table table-bordered">
+            <div class="table-responsive">
+                <table class="table custom-table">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                    </tr>
+                    </thead>
                     <tbody>
                     <tr>
-                        <th scope="row" class="text-primary">ID</th>
                         <td>{{ project.id }}</td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="text-primary">Name</th>
                         <td>{{ project.name }}</td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="text-primary">Description</th>
                         <td>{{ project.description }}</td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="text-primary">Start Date</th>
                         <td>{{ project.startDate ? project.startDate|date('Y-m-d H:i:s') : 'N/A' }}</td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="text-primary">End Date</th>
                         <td>{{ project.endDate ? project.endDate|date('Y-m-d H:i:s') : 'N/A' }}</td>
                     </tr>
                     </tbody>
                 </table>
             </div>
+
+            <div class="mt-4 text-center">
+                <!-- Buttons next to each other -->
+                <a href="{{ path('app_project_index') }}" class="btn btn-outline-primary btn-sm mx-2">
+                    <i class="bi bi-arrow-left-circle"></i> Back to List
+                </a>
+
+                <a href="{{ path('app_project_edit', {'id': project.id}) }}" class="btn btn-warning btn-sm mx-2">
+                    <i class="bi bi-pencil"></i> Edit
+                </a>
+
+                <!-- Delete Button (Red) -->
+                <form action="{{ path('app_project_delete', {'id': project.id}) }}" method="post" style="display:inline;">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ project.id) }}">
+                    <button type="submit" class="btn btn-danger btn-sm mx-2">
+                        <i class="bi bi-trash"></i> Delete
+                    </button>
+                </form>
+            </div>
         </div>
 
-        <div class="mt-4 text-center">
-            <a href="{{ path('app_project_index') }}" class="btn btn-secondary">Back to List</a>
-            <a href="{{ path('app_project_edit', {'id': project.id}) }}" class="btn btn-primary">Edit</a>
-            {{ include('project/_delete_form.html.twig', { 'class': 'd-inline' }) }}
-        </div>
-    </div>
+        <style>
+            /* General Container */
+            .container-fluid {
+                margin-top: 0; /* Remove top margin */
+                padding-left: 0; /* Remove left padding */
+                padding-right: 0; /* Remove right padding */
+            }
 
-    <style>
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
+            h1 {
+                font-size: 2.5rem;
+                font-weight: bold;
+                color: #007bff;
+            }
 
-        h1 {
-            font-size: 2rem;
-            color: #007bff;
-        }
+            /* Table Styles */
+            .custom-table {
+                width: 100%;
+                border-collapse: collapse;
+            }
 
-        .card {
-            border-radius: 8px;
-            border: 1px solid #ddd;
-            background-color: #f8f9fa;
-        }
+            .custom-table th {
+                background-color: #4A47A3;
+                color: white;
+                font-weight: bold;
+                padding: 10px;
+                text-align: left;
+            }
 
-        .table th {
-            width: 30%;
-            background-color: #f1f1f1;
-        }
+            .custom-table td {
+                padding: 12px 10px;
+                font-size: 14px;
+                color: #555;
+            }
 
-        .table th, .table td {
-            font-size: 16px;
-            vertical-align: middle;
-        }
+            .custom-table tr:nth-child(even) {
+                background-color: #f9f9f9;
+            }
 
-        .btn-secondary {
-            margin-right: 10px;
-        }
+            .custom-table tr:hover {
+                background-color: #f1f1f1;
+                transition: background-color 0.3s;
+            }
 
-        .btn-primary {
-            margin-right: 10px;
-        }
+            /* Buttons */
+            .btn-sm {
+                padding: 10px 20px; /* Adjust padding to match example page button size */
+                font-size: 14px; /* Adjust font size */
+            }
 
-        .btn-danger {
-            color: #fff;
-            background-color: #dc3545;
-            border-color: #dc3545;
-        }
+            .btn-outline-primary {
+                border: 1px solid #007bff;
+                color: #007bff;
+            }
 
-        .mt-4 {
-            margin-top: 1.5rem;
-        }
-    </style>
-{% endblock %}
+            .btn-warning {
+                background-color: #ffc107;
+                border: 1px solid #ffc107;
+                color: #000;
+            }
+
+            .btn-danger {
+                background-color: #dc3545; /* Red color for Delete button */
+                border: 1px solid #dc3545;
+                color: #fff;
+            }
+
+            .mx-2 {
+                margin-left: 10px;
+                margin-right: 10px;
+            }
+
+            .mt-4 {
+                margin-top: 2rem;
+            }
+
+            /* Icon Styles */
+            .bi {
+                margin-right: 5px;
+            }
+            h1 {
+                font-family: 'Poppins', sans-serif;
+                font-weight: 600;
+                color: #000B58;
+                margin-bottom: 20px;
+            }
+
+        </style>
+    {% endblock %}
+
 {% endblock %}
