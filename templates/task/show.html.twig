@@ -2,180 +2,52 @@
 
 {% block body %}
 
-    {% block sidebar %}
-        {{ parent() }}
-    {% endblock %}
+{% block sidebar %}
+    {{ parent() }}
+{% endblock %}
 
-    {% block nav %}
-        {{ parent() }}
-    {% endblock %}
+  {% block nav %}
+      {{ parent() }}
+  {% endblock %}
 
-    {% block contentBody %}
-        <div class="container mt-5">
-            <div class="card shadow-lg border-0 rounded-lg">
-                <div class="card-header" style="background-color: #605EA1; color: white;">
-                    <h1 class="h3 mb-0">Task Details</h1>
-                </div>
-                <div class="card-body">
-                    <table class="table table-hover table-bordered">
-                        <tbody>
-                        <tr class="table-light">
-                            <th style="background-color: #605EA1; color: white;">Id</th>
-                            <td>{{ task.id }}</td>
-                        </tr>
-                        <tr class="table-light">
-                            <th style="background-color: #7A6B9E; color: white;">Title</th>
-                            <td>{{ task.title }}</td>
-                        </tr>
-                        <tr class="table-light">
-                            <th style="background-color: #8E7FA5; color: white;">Description</th>
-                            <td>{{ task.description }}</td>
-                        </tr>
-                        <tr class="table-light">
-                            <th style="background-color: #9A89A8; color: white;">Status</th>
-                            <td>
-                                    <span class="badge badge-{{ task.status == 'completed' ? 'success' : 'warning' }}" style="background-color: transparent; color: #6c757d;">
-                                        {{ task.status|capitalize }}
-                                    </span>
-                            </td>
-                        </tr>
-                        <tr class="table-light">
-                            <th style="background-color: #A59BB0; color: white;">Start Date</th>
-                            <td>{{ task.startDate ? task.startDate|date('Y-m-d H:i:s') : 'N/A' }}</td>
-                        </tr>
-                        <tr class="table-light">
-                            <th style="background-color: #B0AEB3; color: white;">Due Date</th>
-                            <td>{{ task.dueDate ? task.dueDate|date('Y-m-d H:i:s') : 'N/A' }}</td>
-                        </tr>
-                        </tbody>
-                    </table>
 
-                    <div class="d-flex justify-content-between">
-                        <a href="{{ path('app_task_index') }}" class="btn btn-outline-secondary">Back to List</a>
-                        <a href="{{ path('app_task_edit', {'id': task.id}) }}" class="btn btn-warning">Edit</a>
-                    </div>
 
-                    <form action="{{ path('app_task_delete', {'id': task.id}) }}" method="post" style="margin-top: 15px;">
-                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ task.id) }}">
-                        <button type="submit" class="btn btn-danger">Delete</button>
-                    </form>
+{% block contentBody %}
+    <h1>Task</h1>
 
-                </div>
-            </div>
-        </div>
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ task.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ task.title }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ task.description }}</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>{{ task.status }}</td>
+            </tr>
+            <tr>
+                <th>Start_date</th>
+                <td>{{ task.startDate ? task.startDate|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Due_date</th>
+                <td>{{ task.dueDate ? task.dueDate|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
 
-        <style>
-            .container {
-                max-width: 900px;
-                margin: 0 auto;
-                padding: 20px;
-            }
+    <a href="{{ path('app_task_index') }}">back to list</a>
 
-            .card {
-                border-radius: 15px;
-                box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.1);
-            }
+    <a href="{{ path('app_task_edit', {'id': task.id}) }}">edit</a>
 
-            .card-header {
-                border-radius: 15px 15px 0 0;
-            }
-
-            .table {
-                font-size: 1.1rem;
-                color: #333;
-                border-radius: 10px;
-                overflow: hidden;
-                background-color: #fff;
-            }
-
-            .table th {
-                font-weight: bold;
-                color: #fff;
-                border-bottom: 2px solid #ddd;
-            }
-
-            .table td {
-                font-size: 1rem;
-                color: #6c757d;
-                border-bottom: 1px solid #ddd;
-            }
-
-            .table tbody tr:hover {
-                background-color: #B0AEB3; /* Hover effect with a lighter shade of the same color */
-            }
-
-            .table-light {
-                background-color: #F8F9FA; /* Light background for rows */
-            }
-
-            .table-bordered th, .table-bordered td {
-                border: 1px solid #ddd;
-            }
-
-            .badge {
-                font-size: 0.9rem;
-                font-weight: 600;
-                padding: 0.5em;
-                color: #6c757d; /* Ensuring status text matches table text color */
-            }
-
-            .badge-success {
-                background-color: #28a745;
-                color: #fff;
-            }
-
-            .badge-warning {
-                background-color: #ffc107;
-                color: #fff;
-            }
-
-            .btn {
-                font-size: 1rem;
-                padding: 0.75rem 1.5rem;
-                border-radius: 30px;
-                font-weight: 600;
-            }
-
-            .btn-outline-secondary {
-                border-color: #6c757d;
-                color: #6c757d;
-                background-color: transparent;
-            }
-
-            .btn-outline-secondary:hover {
-                background-color: #6c757d;
-                color: #fff;
-            }
-
-            .btn-warning {
-                background-color: #ffc107;
-                border-color: #ffc107;
-            }
-
-            .btn-warning:hover {
-                background-color: #e0a800;
-                border-color: #d39e00;
-            }
-
-            .btn-danger {
-                background-color: #dc3545;
-                border-color: #dc3545;
-            }
-
-            .btn-danger:hover {
-                background-color: #c82333;
-                border-color: #bd2130;
-            }
-
-            .btn:focus {
-                box-shadow: none;
-            }
-
-            .d-flex {
-                margin-top: 20px;
-            }
-
-        </style>
-
-    {% endblock %}
+    {{ include('task/_delete_form.html.twig') }}
+{% endblock %}
 {% endblock %}

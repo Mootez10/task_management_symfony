@@ -10,12 +10,20 @@
       {{ parent() }}
   {% endblock %}
 
+
+
+
+
 {% block contentBody %}
-    <div class="container mt-0">
+    <div class="container mt-5">
         <h1 class="mb-4 text-center text-success">User Management</h1>
 
         <!-- Create New User Button -->
-
+        <div class="mb-4 text-end">
+            <a href="{{ path('app_user_new') }}" class="btn btn-gradient btn-lg shadow-sm">
+                <i class="bi bi-person-plus"></i> Create New User
+            </a>
+        </div>
 
         <!-- User Table -->
         <div class="table-responsive shadow rounded">
@@ -66,19 +74,16 @@
             </table>
         </div>
     </div>
-    <div class="mb-4 text-end">
-        <a href="{{ path('app_user_new') }}" class="btn btn-gradient btn-lg shadow-sm">
-            <i class="bi bi-person-plus"></i> Create New User
-        </a>
-    </div>
+
     <style>
         /* General Container */
         .container {
-
-            margin: 0;
+            max-width: 1200px;
+            margin: 0 auto;
             background: #fff;
             padding: 20px;
-
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         /* Header */
